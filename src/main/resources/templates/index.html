@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <th:block th:replace="_commun :: head"></th:block>
+  
+    </head>
+    <body>
+        <th:block th:replace="_commun :: header"></th:block>
+        
+        <main class="container-fluid">
+        	<form th:action="@{/article/ByCategorie}" th:object="${categorie}" method="post" class="pagination mb-3 ms-2">
+        		<select th:field="*{categorie}" class="p-1">
+        			<option value="0"> -- Choix --</option>
+        			<option th:each="categorie : ${categories}" 
+        				    th:text="${categorie.categorie}" 
+        				    th:value="${categorie.categorie}"
+        				    class="page-item p-1"
+        				   />
+        		</select>
+        		<button class="btn btn-outline-success page-item" type="submit">Chercher</button>
+        	</form>
+       
+	        	<div id="articleOpacity" class="d-flex row justify-content-center" style="max-width: 100%;">
+	        	
+	        		<div class="card m-4 col-2 col-md-4" style="width: 18rem;" th:each="article : ${articles}">
+					  <img th:src="${article.image}" style="width: 100%; height: 100%" class="img-fluid rounded-start card-img-top"  alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">[[${article.libelle}]]</h5>
+					    <p class="card-text">[[${#strings.substring(article.description,0, 30)}]]...</p>
+					    <p class="card-text"><small class="text-muted">[[${article.prix}]]€</small></p>
+					    <a class="btn btn-outline-primary w-100" th:href="@{/article/articleToPanier/__${article.id_art}__}">Commander</a>
+					  </div>
+					</div>
+	        	
+				</div>
+        	
+        </main>
+            
+        <!-- Footer-->
+		<th:block th:replace="_commun :: footer"></th:block>
+    </body>
+</html>

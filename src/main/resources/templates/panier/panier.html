@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <th:block th:replace="_commun :: head"></th:block>
+  
+    </head>
+    <body>
+        <th:block th:replace="_commun :: header"></th:block>
+        
+        <main class="container-fluid">
+        	<h2 class="text-center">Mon panier</h2>
+        	
+        	<div class="row mx-1" th:if="${#lists.size(session.panier)}">
+        		<div class="col-8">
+        			<div class="row">
+        				<div class="card mb-3" th:each="panier, status : ${paniers}">
+        					<div class="card-body row">
+        						<div class="col-1 text-center">
+        							[[${status.count}]]
+        							<div>
+        								<a th:href="@{/delete/__${panier.id}__}"><i class="fas fa-trash text-danger"></i></a>
+        							</div>
+        						</div>
+        						<div class="col-4">
+        							<img alt="logo" th:src="@{'/imgArticle/'+${panier.article.logo}}">
+        						</div>
+        						<div class="col-7">
+        							<div class="fw-bold mb-2 text-primary">
+        								<div>[[${panier.article.libelle}]]</div>
+        								<span>quantité disponible : <span th:id="'quantity' + ${panier.id}">[[${panier.article.quantity}]]</span></span>
+        							</div>
+        							<form th:action="@{/add/panier}" method="post">
+					      				<input type="hidden" name="article" value="">
+					      				<ul class="pagination">
+					      					<li class="page-item">
+					      						<a href="" class="page-link moins" th:id="${panier.id}"><b>-</b></a>
+					      					</li>
+					      					
+					      					<li class="page-item">
+					      						<input readonly type="text" th:id="'input' + ${panier.id}" th:value="${panier.quantity}" class="form-control text-center" style="max-width: 55px; height: 45px;" />
+					      					</li>
+					      					<li class="page-item">
+					      						<a href="#" th:pid="${panier.id}" class="page-link plus"><b>+</b></a>
+					      					</li>
+					      				</ul>
+					      			</form>
+					      			<div>X [[${panier.article.prix}]]€</div>
+					      			<div class="fw-bold" >= <span class="somme" th:id="'somme' + ${panier.id}">[[${panier.article.prix}*${panier.quantity}]]</span>€</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+        		<div class="col-4">
+        			Total panier
+        			<div class="my-2"><span id="resultat"></span>€</div>
+<!--         			<a th:href="@{/commande/add/}" class="btn btn-primary">Valider</a> -->
+        				<!-- Button trigger modal -->
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="modal">
+					  Valider
+					</button>
+        			<a th:href="@{/}" class="btn btn-primary">Continuer mes achats</a>
+        		</div>
+        	</div>
+        	<div th:unless="${#lists.size(session.panier)}" class="text-center">
+        		Vous n'avez pas d'article dans votre panier
+        	</div>
+        	
+        </main>
+            
+        <!-- Footer-->
+		 <th:block th:replace="_commun :: footer"></th:block>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Validation du panier</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        Total panier : <span id="panierModal"></span>€
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <a th:href="@{/commande/add/}" class="btn btn-primary">Valider</a>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	
+	
+    </body>
+</html>

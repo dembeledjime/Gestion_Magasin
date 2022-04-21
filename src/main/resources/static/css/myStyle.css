@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+
+*:hover{transition:  1s 0s;}
+
+header{
+/* 	background: url([[@{/img/home-bg.jpg}]]); */
+}
+
+
+
+.mastheadBis{
+	position: relative;
+    margin-bottom: 3rem;
+    padding-top: calc(8rem + 57px);
+    background: no-repeat center center;
+    background-color: #6c757d;
+    background-size: cover;
+    background-attachment: scroll;
+}
+
+header img{
+	width: 70%
+}
+
+img{max-width: 100%}
+
+td{
+	height: 50px;
+	width: 50px
+}
+
+.panier{
+	position: relative;
+	z-index: 1;
+    left: -25px;
+    top: -10px;
+}
+
+.bc{
+	background-color: rgba(0, 0, 0, .5);
+}
+
+#articleOpacity:hover > div{opacity: .5}
+
+#articleOpacity:hover > div:hover {
+  transform: scale(1.01); 
+  opacity: 1
+}
+
+.fond{background-color: red !important; }
+
+
+
+
+
